@@ -1,0 +1,292 @@
+import * as Clases from "./clases.js";
+import * as ClasesCanvas from "./canvas.js";
+import * as Filtres from "./canvas.js";
+let resultatFinal = null;
+let imagenActual = null;
+function draw(objecte_img, x, y) {
+    imagenActual = objecte_img;
+    const canvas = document.getElementById("myCanvas");
+    const ctx = canvas.getContext("2d");
+    const newWidth = objecte_img.width * 2 + 40;
+    const newHeight = objecte_img.height + 30; 
+    canvas.setAttribute("width", newWidth);
+    canvas.setAttribute("height", newHeight);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(objecte_img, x + 10, y + 10);
+    ctx.drawImage(imagenActual, x + imagenActual.width + 20, y + 10);
+}
+
+function bright(brightnessValue) {
+    const canvas = document.getElementById("myCanvas");
+    const ctx = canvas.getContext("2d");
+    draw(imagenActual, 0, 0);
+    var x = imagenActual.width + 20; 
+    var y = 10;
+    var imageData = ctx.getImageData(x, y, imagenActual.width, imagenActual.height);
+    var data = imageData.data;
+    brightnessValue = brightnessValue * 2;
+    for(var i = 0; i < data.length; i += 4) {
+        data[i]     = Math.min(255, data[i] * brightnessValue);     
+        data[i + 1] = Math.min(255, data[i + 1] * brightnessValue); 
+        data[i + 2] = Math.min(255, data[i + 2] * brightnessValue); 
+    }
+    ctx.putImageData(imageData, x, y);
+    const tempCanvas = document.createElement('canvas');
+    const tempCtx = tempCanvas.getContext('2d');
+    tempCanvas.width = imagenActual.width;
+    tempCanvas.height = imagenActual.height;
+    tempCtx.putImageData(imageData, 0, 0);
+    resultatFinal = tempCanvas.toDataURL();
+}
+function saveImage() {
+    if (resultatFinal) {
+        const a = document.createElement('a');
+        a.href = resultatFinal;
+        a.download = 'imagen-ajustada.png';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    } else {
+        console.log('No hay imagen para guardar');
+    }
+}
+function brightYES() {
+    const sliderValue = document.getElementById('bar_bright').value;
+    const brightnessValue = sliderValue / 100;
+    bright(brightnessValue);
+}
+function tempYES() {
+    const sliderValue = document.getElementById('bar_bright').value;
+    const brightnessValue = sliderValue / 100;
+    temperature(brightnessValue);
+}
+function openRange(){
+    elementbar_brightness.printElement(buttonBox).addListener("change", brightYES)
+}
+function openRange2(){
+    elementbar_brightness.printElement(buttonBox).addListener("change", tempYES)
+}
+function blackWhite(){
+    const canvas = document.getElementById("myCanvas");
+    const ctx = canvas.getContext("2d");
+
+   
+    draw(imagenActual, 0, 0);
+
+
+    var x = imagenActual.width + 20; 
+    var y = 10;
+
+
+    var imgData = ctx.getImageData(x, y, imagenActual.width, imagenActual.height);
+    var pixels = imgData.data;
+
+    for (var i = 0; i < pixels.length; i += 4) {
+        var luminosidad = parseInt((pixels[i] + pixels[i + 1] + pixels[i + 2]) / 3);
+        pixels[i] = luminosidad; 
+        pixels[i + 1] = luminosidad; 
+        pixels[i + 2] = luminosidad; 
+    }
+
+    ctx.putImageData(imgData, x, y);
+    const tempCanvas = document.createElement('canvas');
+    const tempCtx = tempCanvas.getContext('2d');
+    tempCanvas.width = imagenActual.width;
+    tempCanvas.height = imagenActual.height;
+
+
+    tempCtx.drawImage(canvas, x, y, imagenActual.width, imagenActual.height, 0, 0, imagenActual.width, imagenActual.height);
+
+    resultatFinal = tempCanvas.toDataURL();
+}
+function negative(){
+    const canvas = document.getElementById("myCanvas");
+    const ctx = canvas.getContext("2d");
+
+   
+    draw(imagenActual, 0, 0);
+
+
+    var x = imagenActual.width + 20; 
+    var y = 10;
+
+
+    var imgData = ctx.getImageData(x, y, imagenActual.width, imagenActual.height);
+    var pixels = imgData.data;
+
+    for (var i = 0; i < pixels.length; i += 4) {
+        pixels[i] = 255 - pixels[i]; 
+        pixels[i + 1] = 255 - pixels[i+1]; 
+        pixels[i + 2] = 255 - pixels[i+2]; 
+    }
+
+    ctx.putImageData(imgData, x, y);
+    const tempCanvas = document.createElement('canvas');
+    const tempCtx = tempCanvas.getContext('2d');
+    tempCanvas.width = imagenActual.width;
+    tempCanvas.height = imagenActual.height;
+
+   
+    tempCtx.drawImage(canvas, x, y, imagenActual.width, imagenActual.height, 0, 0, imagenActual.width, imagenActual.height);
+
+    
+    resultatFinal = tempCanvas.toDataURL();
+
+}
+function mirror(){
+    const canvas = document.getElementById("myCanvas");
+    const ctx = canvas.getContext("2d");
+
+
+    draw(imagenActual, 0, 0);
+
+
+    var x = imagenActual.width + 20; 
+    var y = 10;
+
+
+    const tempCanvas = document.createElement('canvas');
+    const tempCtx = tempCanvas.getContext('2d');
+    tempCanvas.width = imagenActual.width;
+    tempCanvas.height = imagenActual.height;
+
+    tempCtx.translate(imagenActual.width, 0);
+    tempCtx.scale(-1, 1);
+
+    tempCtx.drawImage(canvas, x, y, imagenActual.width, imagenActual.height, 0, 0, imagenActual.width, imagenActual.height);
+
+
+    ctx.drawImage(tempCanvas, x, y);
+
+
+    resultatFinal = tempCanvas.toDataURL();
+}
+function del(){
+    const canvas = document.getElementById("myCanvas");
+    const ctx = canvas.getContext("2d");
+
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+
+    canvas.width = 1000;
+    canvas.height = 750;
+
+    imagenActual = null;
+    resultatFinal = null;
+}
+function sepia(){
+    const canvas = document.getElementById("myCanvas");
+    const ctx = canvas.getContext("2d");
+
+   
+    draw(imagenActual, 0, 0);
+
+
+    var x = imagenActual.width + 20; 
+    var y = 10;
+
+
+    var imgData = ctx.getImageData(x, y, imagenActual.width, imagenActual.height);
+    var pixels = imgData.data;
+
+    for (var i = 0; i < pixels.length; i += 4) {
+        var luminosidad = .3 * pixels[i] + .6 * pixels[i + 1] + .1 * pixels[i + 2];
+        pixels[i] = Math.min(luminosidad + 40, 255); 
+        pixels[i + 1] = Math.min(luminosidad + 15, 255); 	
+        pixels[i + 2] = luminosidad;		
+    }
+
+    ctx.putImageData(imgData, x, y);
+    const tempCanvas = document.createElement('canvas');
+    const tempCtx = tempCanvas.getContext('2d');
+    tempCanvas.width = imagenActual.width;
+    tempCanvas.height = imagenActual.height;
+
+ 
+    tempCtx.drawImage(canvas, x, y, imagenActual.width, imagenActual.height, 0, 0, imagenActual.width, imagenActual.height);
+
+
+    resultatFinal = tempCanvas.toDataURL();
+}
+function temperature(brightnessValue){
+    const canvas = document.getElementById("myCanvas");
+    const ctx = canvas.getContext("2d");
+    draw(imagenActual, 0, 0);
+    var x = imagenActual.width + 20; 
+    var y = 10;
+    var imageData = ctx.getImageData(x, y, imagenActual.width, imagenActual.height);
+    var data = imageData.data;
+    brightnessValue = brightnessValue * 2;
+    for(var i = 0; i < data.length; i += 4) {
+        data[i]     = Math.min(255, data[i] * brightnessValue);     
+    }
+    ctx.putImageData(imageData, x, y);
+    const tempCanvas = document.createElement('canvas');
+    const tempCtx = tempCanvas.getContext('2d');
+    tempCanvas.width = imagenActual.width;
+    tempCanvas.height = imagenActual.height;
+    tempCtx.putImageData(imageData, 0, 0);
+    resultatFinal = tempCanvas.toDataURL();
+}
+//Contenidors
+const elementcontent = new Clases.DomElement("div",{id:"content",class:"content"}).createElement().printElement(document.body);
+const elementbuttonContent = new Clases.DomElement("div",{id:"buttonContent",class:"buttonContent"}).createElement();
+const elementimgContent = new Clases.DomElement("div",{id:"imgContent",class:"imgContent"}).createElement();
+//Botons
+const elementbuttonBrightness = new Clases.DomElement('input',{type:'button',id:'bright'}).createElement().addListener("click",openRange);
+const elementbutton_BW = new Clases.DomElement('input',{type:'button',id:'black_white'}).createElement().addListener("click",blackWhite);
+const elementbutton_neg = new Clases.DomElement('input',{type:'button',id:'negative'}).createElement().addListener("click",negative);
+const elementbutton_mirror = new Clases.DomElement('input',{type:'button',id:'mirror'}).createElement().addListener("click",mirror);
+const elementbutton_del = new Clases.DomElement('input',{type:'button',id:'del'}).createElement().addListener("click",del);
+const elementbutton_save = new Clases.DomElement('input',{type:'button',id:'save'}).createElement().addListener("click",saveImage);
+const elementbar_brightness = new Clases.DomElement('input', {type:'range',id: 'bar_bright',value: '50',min:'1', max: '100'}).createElement();
+const elementbar_temperatura = new Clases.DomElement('input', {type:'range',id: 'bar_bright',value: '50',min:'1', max: '100'}).createElement();
+const elementbutton_sepia = new Clases.DomElement('input',{type:'button',id:'sepia'}).createElement().addListener("click",sepia);
+const elementbutton_temperature = new Clases.DomElement('input',{type:'button',id:'temperature'}).createElement().addListener("click",openRange2);;
+//Canvas
+const elementCanva = new Clases.DomElement('canvas',{id:'myCanvas',width:'200px',height:'150px',style:"background-color:green"}).createElement();
+
+//Fotos
+const elementImg1 = new Clases.DomElement('img',{id:'foto1',src:'img/imagen1.jpg',height:'70px',width:'auto'}).createElement();
+const elementImg2 = new Clases.DomElement('img',{id:'foto2',src:'img/imagen2.jpg',height:'70px',width:'auto'}).createElement();
+const elementImg3 = new Clases.DomElement('img',{id:'foto3',src:'img/imagen3.jpg',height:'70px',width:'auto'}).createElement();
+const elementImg4 = new Clases.DomElement('img',{id:'foto4',src:'img/imagen4.jpg',height:'70px',width:'auto'}).createElement();
+const elementImg5 = new Clases.DomElement('img',{id:'foto5',src:'img/imagn5.jpg',height:'70px',width:'auto'}).createElement();
+
+let content = document.getElementById("content");
+elementbuttonContent.printElement(content);
+let buttonBox = document.getElementById("buttonContent");
+
+elementbuttonBrightness.printElement(buttonBox);
+elementbutton_BW.printElement(buttonBox);
+elementbutton_neg.printElement(buttonBox);
+elementbutton_mirror.printElement(buttonBox);
+elementbutton_sepia.printElement(buttonBox);
+elementbutton_temperature.printElement(buttonBox)
+elementbutton_del.printElement(buttonBox);
+elementbutton_save.printElement(buttonBox);
+elementCanva.printElement(content);
+elementimgContent.printElement(content);
+let imgBox = document.getElementById("imgContent");
+elementImg1.printElement(imgBox);
+elementImg2.printElement(imgBox);
+elementImg3.printElement(imgBox);
+elementImg4.printElement(imgBox);
+elementImg5.printElement(imgBox);
+
+let idC = elementCanva.getId()
+console.log(idC)
+const prueba = new ClasesCanvas.Canvas(idC).getContextCanvas();
+console.log(prueba);
+
+
+let imagenes = document.querySelectorAll("img");
+imagenes.forEach(imagen => {
+    document.getElementById(imagen.id).onclick = function() {
+        let imagen_a_canvas = new Image();
+        imagen_a_canvas.src = imagen.src;
+        draw(imagen_a_canvas, 0, 0);
+    };
+});
+  

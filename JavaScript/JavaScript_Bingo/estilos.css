@@ -1,0 +1,93 @@
+body{
+  background-image: url('./multimedia/fondoBingo.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+}
+#content {
+  text-align: center;  /* Center contents horizontally */
+  margin-top: 120px;
+}
+table{
+    border-collapse: collapse;
+    width: 50%; 
+    margin: 0 auto; 
+    text-align: center;
+    border: 1px solid #6564DB;
+    background-color: #3B3A69;
+  }
+  th{
+    padding: 10px;
+    color: #c9c8f7;
+  }
+td{
+  border: 1px solid #0D1317;
+  padding: 20px;
+  background-color: #2D2C5C;
+  color: #c9c8f7;
+  text-shadow: 0 0 5px #c9c8f7, 0 0 10px #c9c8f7, 0 0 15px #d889ca, 0 0 20px #d889ca;
+}
+.C_0{
+background-color: #101D42;
+color: #101D42;
+text-shadow: none;
+}
+.bingo-ball {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border: 2px solid #c9c8f7;
+  border-radius: 50%; 
+  text-align: center;
+  line-height: 50px;  
+  font-weight: bold;
+  margin-top: 10px;
+  color: #101D42;
+  background-color: #c9c8f7;   
+}
+button {
+  padding: 15px; 
+  margin-top: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+  background-color: #3B3A69;
+  border: 2px solid #c9c8f7;
+  color: #c9c8f7; 
+}
+#ball-container {
+  margin-top: 20px;    
+  padding-left: 10px; 
+}
+.matched {
+  background-color: rgb(3, 133, 42);
+}
+@keyframes blink {
+  0%, 100% { background-color: #b7e6e7; }
+  50% { background-color: #2D2C5C; }
+} 
+.found {
+  animation: blink 1s 2;
+}
+#quantity{
+  color: #d889ca;
+  text-align: left;
+  font-size: 20px;
+}
+#record{
+  margin-top: 20px;
+  color: #d889ca;
+  text-align: left;
+  font-size: 20px;
+} 
+#muteButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 5px 10px;
+  font-size: 12px;
+  background-color: #d889ca;
+  border: 2px solid #c9c8f7;
+  color: #c9c8f7;
+  border-radius: 20px;
+} 

@@ -1,0 +1,199 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+header{
+    background-color: rgb(3, 3, 46);
+    padding: 40px;
+    margin-bottom: 20px;
+    width: 100%;
+    top: 0;          
+    left: 0;         
+    right: 0; 
+    a{
+        text-decoration: none;
+        color: white;
+        font-size: 20px;
+    }
+
+}
+.table{
+    margin-top: 20px;
+    margin-left: 150px;
+}
+.table, td, th{
+
+    border: 1px solid black;
+    border-collapse: collapse
+};
+.galleryCards{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.card{
+    background: linear-gradient(#690a0a, #000000);
+    color: #e0e4f5;
+    display: flex;
+    flex-direction: column;
+    max-width: 348px;
+
+    .image{
+        order: 0;
+    }
+    .name{
+        order: 1;
+        background-color: #720808;
+        text-align: center;
+        font-size: 25px;
+        padding: 20px;
+        font-weight: bold;
+        border-bottom: 2px solid #e0e4f5;
+        max-width: 348px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+    .desc{
+        order: 2;
+        border-bottom: 2px solid #e0e4f5;
+        max-width: 348px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        padding: 10px;
+    }
+    .origin{
+        order: 3;
+        border-bottom: 2px solid #e0e4f5;
+        max-width: 348px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        padding: 10px;
+    }
+    .kind{
+        order: 4;
+        border-bottom: 2px solid #e0e4f5;
+        max-width: 348px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        padding: 10px;
+    }
+    .home{
+        order: 5;
+        border-bottom: 2px solid #e0e4f5;
+        max-width: 348px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        padding: 10px;
+    }
+    .state{
+        order: 6;
+        max-width: 348px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        padding: 10px;
+    }
+}
+#card{
+    background: linear-gradient(#690a0a, #000000);
+    color: #e0e4f5;
+    display: flex;
+    flex-direction: column;
+    max-width: 348px;
+    #card_fimage{
+        order: 0;
+        
+    }
+    #card_fcharactname{
+        order: 1;
+        background-color: #720808;
+        text-align: center;
+        font-size: 25px;
+        padding: 20px;
+        font-weight: bold;
+        border-bottom: 2px solid #e0e4f5;
+        max-width: 348px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+    #card_fcharactdesc{
+        order: 2;
+        border-bottom: 2px solid #e0e4f5;
+        max-width: 348px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        padding: 10px;
+    }
+    #card_fcharactorigin{
+        order: 3;
+        border-bottom: 2px solid #e0e4f5;
+        max-width: 348px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        padding: 10px;
+    }
+    #card_fcharactkind{
+        order: 4;
+        border-bottom: 2px solid #e0e4f5;
+        max-width: 348px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        padding: 10px;
+    }
+    #card_fhome{
+        order: 5;
+        border-bottom: 2px solid #e0e4f5;
+        max-width: 348px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        padding: 10px;
+    }
+    #card_fcharactstate{
+        order: 6;
+        max-width: 348px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        padding: 10px;
+    }
+
+}
+#backgrnd{
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+margin-left: 150px;
+margin-right: 150px;
+}
+.blueC{
+    background-color: #e0e4f5;
+    border: 2px solid #9d9ea4;
+}
+form{
+    display: flex;
+    flex-direction: column;
+}
+#content{
+width: 30%;
+padding: 40px;   
+input{
+    width: 60%;
+    height: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;        
+}
+input[type = 'button']{
+    width: 50px;
+    height: 30px;
+    display: flex;
+  
+}
+label{
+    color: #901420;
+}
+select{
+    width: 60%;
+    height: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;  
+}
+}
